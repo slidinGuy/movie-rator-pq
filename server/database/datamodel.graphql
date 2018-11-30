@@ -1,0 +1,15 @@
+type Movie {
+  id: ID! @unique
+  title: String!
+  poster: String!
+  year: Int!
+  country: String!
+  category: Category!
+  claps: Int!
+}
+
+type Category {
+  id: ID! @unique
+  name: String!
+  movies: [Movie!]!
+}

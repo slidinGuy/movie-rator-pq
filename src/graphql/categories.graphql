@@ -1,0 +1,14 @@
+query GetCategories {
+  categories {
+		id
+		name
+		movies {
+			id
+			title
+			poster
+			year
+			country
+      claps
+		}
+	}
+}

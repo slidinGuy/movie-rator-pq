@@ -1,0 +1,913 @@
+# source: https://eu1.prisma.sh/nawrathviktor-fecfd4/movie-rator/dev
+# timestamp: Thu Nov 29 2018 18:06:14 GMT+0100 (Central European Standard Time)
+
+type AggregateCategory {
+  count: Int!
+}
+
+type AggregateMovie {
+  count: Int!
+}
+
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+type Category implements Node {
+  id: ID!
+  name: String!
+  movies(where: MovieWhereInput, orderBy: MovieOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Movie!]
+}
+
+"""A connection to a list of items."""
+type CategoryConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CategoryEdge]!
+  aggregate: AggregateCategory!
+}
+
+input CategoryCreateInput {
+  name: String!
+  movies: MovieCreateManyWithoutCategoryInput
+}
+
+input CategoryCreateOneWithoutMoviesInput {
+  create: CategoryCreateWithoutMoviesInput
+  connect: CategoryWhereUniqueInput
+}
+
+input CategoryCreateWithoutMoviesInput {
+  name: String!
+}
+
+"""An edge in a connection."""
+type CategoryEdge {
+  """The item at the end of the edge."""
+  node: Category!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum CategoryOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type CategoryPreviousValues {
+  id: ID!
+  name: String!
+}
+
+type CategorySubscriptionPayload {
+  mutation: MutationType!
+  node: Category
+  updatedFields: [String!]
+  previousValues: CategoryPreviousValues
+}
+
+input CategorySubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CategorySubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CategorySubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CategorySubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CategoryWhereInput
+}
+
+input CategoryUpdateInput {
+  name: String
+  movies: MovieUpdateManyWithoutCategoryInput
+}
+
+input CategoryUpdateManyMutationInput {
+  name: String
+}
+
+input CategoryUpdateOneRequiredWithoutMoviesInput {
+  create: CategoryCreateWithoutMoviesInput
+  connect: CategoryWhereUniqueInput
+  update: CategoryUpdateWithoutMoviesDataInput
+  upsert: CategoryUpsertWithoutMoviesInput
+}
+
+input CategoryUpdateWithoutMoviesDataInput {
+  name: String
+}
+
+input CategoryUpsertWithoutMoviesInput {
+  update: CategoryUpdateWithoutMoviesDataInput!
+  create: CategoryCreateWithoutMoviesInput!
+}
+
+input CategoryWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CategoryWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CategoryWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CategoryWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  movies_every: MovieWhereInput
+  movies_some: MovieWhereInput
+  movies_none: MovieWhereInput
+}
+
+input CategoryWhereUniqueInput {
+  id: ID
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Movie implements Node {
+  id: ID!
+  title: String!
+  poster: String!
+  year: Int!
+  country: String!
+  category: Category!
+  claps: Int!
+}
+
+"""A connection to a list of items."""
+type MovieConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [MovieEdge]!
+  aggregate: AggregateMovie!
+}
+
+input MovieCreateInput {
+  title: String!
+  poster: String!
+  year: Int!
+  country: String!
+  claps: Int!
+  category: CategoryCreateOneWithoutMoviesInput!
+}
+
+input MovieCreateManyWithoutCategoryInput {
+  create: [MovieCreateWithoutCategoryInput!]
+  connect: [MovieWhereUniqueInput!]
+}
+
+input MovieCreateWithoutCategoryInput {
+  title: String!
+  poster: String!
+  year: Int!
+  country: String!
+  claps: Int!
+}
+
+"""An edge in a connection."""
+type MovieEdge {
+  """The item at the end of the edge."""
+  node: Movie!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum MovieOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+  poster_ASC
+  poster_DESC
+  year_ASC
+  year_DESC
+  country_ASC
+  country_DESC
+  claps_ASC
+  claps_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type MoviePreviousValues {
+  id: ID!
+  title: String!
+  poster: String!
+  year: Int!
+  country: String!
+  claps: Int!
+}
+
+input MovieScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MovieScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MovieScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MovieScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  poster: String
+
+  """All values that are not equal to given value."""
+  poster_not: String
+
+  """All values that are contained in given list."""
+  poster_in: [String!]
+
+  """All values that are not contained in given list."""
+  poster_not_in: [String!]
+
+  """All values less than the given value."""
+  poster_lt: String
+
+  """All values less than or equal the given value."""
+  poster_lte: String
+
+  """All values greater than the given value."""
+  poster_gt: String
+
+  """All values greater than or equal the given value."""
+  poster_gte: String
+
+  """All values containing the given string."""
+  poster_contains: String
+
+  """All values not containing the given string."""
+  poster_not_contains: String
+
+  """All values starting with the given string."""
+  poster_starts_with: String
+
+  """All values not starting with the given string."""
+  poster_not_starts_with: String
+
+  """All values ending with the given string."""
+  poster_ends_with: String
+
+  """All values not ending with the given string."""
+  poster_not_ends_with: String
+  year: Int
+
+  """All values that are not equal to given value."""
+  year_not: Int
+
+  """All values that are contained in given list."""
+  year_in: [Int!]
+
+  """All values that are not contained in given list."""
+  year_not_in: [Int!]
+
+  """All values less than the given value."""
+  year_lt: Int
+
+  """All values less than or equal the given value."""
+  year_lte: Int
+
+  """All values greater than the given value."""
+  year_gt: Int
+
+  """All values greater than or equal the given value."""
+  year_gte: Int
+  country: String
+
+  """All values that are not equal to given value."""
+  country_not: String
+
+  """All values that are contained in given list."""
+  country_in: [String!]
+
+  """All values that are not contained in given list."""
+  country_not_in: [String!]
+
+  """All values less than the given value."""
+  country_lt: String
+
+  """All values less than or equal the given value."""
+  country_lte: String
+
+  """All values greater than the given value."""
+  country_gt: String
+
+  """All values greater than or equal the given value."""
+  country_gte: String
+
+  """All values containing the given string."""
+  country_contains: String
+
+  """All values not containing the given string."""
+  country_not_contains: String
+
+  """All values starting with the given string."""
+  country_starts_with: String
+
+  """All values not starting with the given string."""
+  country_not_starts_with: String
+
+  """All values ending with the given string."""
+  country_ends_with: String
+
+  """All values not ending with the given string."""
+  country_not_ends_with: String
+  claps: Int
+
+  """All values that are not equal to given value."""
+  claps_not: Int
+
+  """All values that are contained in given list."""
+  claps_in: [Int!]
+
+  """All values that are not contained in given list."""
+  claps_not_in: [Int!]
+
+  """All values less than the given value."""
+  claps_lt: Int
+
+  """All values less than or equal the given value."""
+  claps_lte: Int
+
+  """All values greater than the given value."""
+  claps_gt: Int
+
+  """All values greater than or equal the given value."""
+  claps_gte: Int
+}
+
+type MovieSubscriptionPayload {
+  mutation: MutationType!
+  node: Movie
+  updatedFields: [String!]
+  previousValues: MoviePreviousValues
+}
+
+input MovieSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MovieSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MovieSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MovieSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: MovieWhereInput
+}
+
+input MovieUpdateInput {
+  title: String
+  poster: String
+  year: Int
+  country: String
+  claps: Int
+  category: CategoryUpdateOneRequiredWithoutMoviesInput
+}
+
+input MovieUpdateManyDataInput {
+  title: String
+  poster: String
+  year: Int
+  country: String
+  claps: Int
+}
+
+input MovieUpdateManyMutationInput {
+  title: String
+  poster: String
+  year: Int
+  country: String
+  claps: Int
+}
+
+input MovieUpdateManyWithoutCategoryInput {
+  create: [MovieCreateWithoutCategoryInput!]
+  connect: [MovieWhereUniqueInput!]
+  disconnect: [MovieWhereUniqueInput!]
+  delete: [MovieWhereUniqueInput!]
+  update: [MovieUpdateWithWhereUniqueWithoutCategoryInput!]
+  updateMany: [MovieUpdateManyWithWhereNestedInput!]
+  deleteMany: [MovieScalarWhereInput!]
+  upsert: [MovieUpsertWithWhereUniqueWithoutCategoryInput!]
+}
+
+input MovieUpdateManyWithWhereNestedInput {
+  where: MovieScalarWhereInput!
+  data: MovieUpdateManyDataInput!
+}
+
+input MovieUpdateWithoutCategoryDataInput {
+  title: String
+  poster: String
+  year: Int
+  country: String
+  claps: Int
+}
+
+input MovieUpdateWithWhereUniqueWithoutCategoryInput {
+  where: MovieWhereUniqueInput!
+  data: MovieUpdateWithoutCategoryDataInput!
+}
+
+input MovieUpsertWithWhereUniqueWithoutCategoryInput {
+  where: MovieWhereUniqueInput!
+  update: MovieUpdateWithoutCategoryDataInput!
+  create: MovieCreateWithoutCategoryInput!
+}
+
+input MovieWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MovieWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MovieWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MovieWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  poster: String
+
+  """All values that are not equal to given value."""
+  poster_not: String
+
+  """All values that are contained in given list."""
+  poster_in: [String!]
+
+  """All values that are not contained in given list."""
+  poster_not_in: [String!]
+
+  """All values less than the given value."""
+  poster_lt: String
+
+  """All values less than or equal the given value."""
+  poster_lte: String
+
+  """All values greater than the given value."""
+  poster_gt: String
+
+  """All values greater than or equal the given value."""
+  poster_gte: String
+
+  """All values containing the given string."""
+  poster_contains: String
+
+  """All values not containing the given string."""
+  poster_not_contains: String
+
+  """All values starting with the given string."""
+  poster_starts_with: String
+
+  """All values not starting with the given string."""
+  poster_not_starts_with: String
+
+  """All values ending with the given string."""
+  poster_ends_with: String
+
+  """All values not ending with the given string."""
+  poster_not_ends_with: String
+  year: Int
+
+  """All values that are not equal to given value."""
+  year_not: Int
+
+  """All values that are contained in given list."""
+  year_in: [Int!]
+
+  """All values that are not contained in given list."""
+  year_not_in: [Int!]
+
+  """All values less than the given value."""
+  year_lt: Int
+
+  """All values less than or equal the given value."""
+  year_lte: Int
+
+  """All values greater than the given value."""
+  year_gt: Int
+
+  """All values greater than or equal the given value."""
+  year_gte: Int
+  country: String
+
+  """All values that are not equal to given value."""
+  country_not: String
+
+  """All values that are contained in given list."""
+  country_in: [String!]
+
+  """All values that are not contained in given list."""
+  country_not_in: [String!]
+
+  """All values less than the given value."""
+  country_lt: String
+
+  """All values less than or equal the given value."""
+  country_lte: String
+
+  """All values greater than the given value."""
+  country_gt: String
+
+  """All values greater than or equal the given value."""
+  country_gte: String
+
+  """All values containing the given string."""
+  country_contains: String
+
+  """All values not containing the given string."""
+  country_not_contains: String
+
+  """All values starting with the given string."""
+  country_starts_with: String
+
+  """All values not starting with the given string."""
+  country_not_starts_with: String
+
+  """All values ending with the given string."""
+  country_ends_with: String
+
+  """All values not ending with the given string."""
+  country_not_ends_with: String
+  claps: Int
+
+  """All values that are not equal to given value."""
+  claps_not: Int
+
+  """All values that are contained in given list."""
+  claps_in: [Int!]
+
+  """All values that are not contained in given list."""
+  claps_not_in: [Int!]
+
+  """All values less than the given value."""
+  claps_lt: Int
+
+  """All values less than or equal the given value."""
+  claps_lte: Int
+
+  """All values greater than the given value."""
+  claps_gt: Int
+
+  """All values greater than or equal the given value."""
+  claps_gte: Int
+  category: CategoryWhereInput
+}
+
+input MovieWhereUniqueInput {
+  id: ID
+}
+
+type Mutation {
+  createMovie(data: MovieCreateInput!): Movie!
+  createCategory(data: CategoryCreateInput!): Category!
+  updateMovie(data: MovieUpdateInput!, where: MovieWhereUniqueInput!): Movie
+  updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category
+  deleteMovie(where: MovieWhereUniqueInput!): Movie
+  deleteCategory(where: CategoryWhereUniqueInput!): Category
+  upsertMovie(where: MovieWhereUniqueInput!, create: MovieCreateInput!, update: MovieUpdateInput!): Movie!
+  upsertCategory(where: CategoryWhereUniqueInput!, create: CategoryCreateInput!, update: CategoryUpdateInput!): Category!
+  updateManyMovies(data: MovieUpdateManyMutationInput!, where: MovieWhereInput): BatchPayload!
+  updateManyCategories(data: CategoryUpdateManyMutationInput!, where: CategoryWhereInput): BatchPayload!
+  deleteManyMovies(where: MovieWhereInput): BatchPayload!
+  deleteManyCategories(where: CategoryWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Query {
+  movies(where: MovieWhereInput, orderBy: MovieOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Movie]!
+  categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category]!
+  movie(where: MovieWhereUniqueInput!): Movie
+  category(where: CategoryWhereUniqueInput!): Category
+  moviesConnection(where: MovieWhereInput, orderBy: MovieOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MovieConnection!
+  categoriesConnection(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CategoryConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+type Subscription {
+  movie(where: MovieSubscriptionWhereInput): MovieSubscriptionPayload
+  category(where: CategorySubscriptionWhereInput): CategorySubscriptionPayload
+}

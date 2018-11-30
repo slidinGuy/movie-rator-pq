@@ -1,0 +1,23 @@
+# import Movie, MovieSubscriptionPayload, Category from "./generated/prisma.graphql"
+
+type Query {
+  info: String
+  movies: [Movie!]!
+  categories: [Category!]!
+}
+
+type Mutation {
+  addCategory(name: String!): Category!
+  addMovie(
+    title: String!, 
+    poster: String!,
+    year: Int!, 
+    country: String!, 
+    categoryId: String!
+  ): Movie!
+  addClap(movieId: String!): Movie!
+}
+
+type Subscription {
+  updatedMovie: MovieSubscriptionPayload
+}

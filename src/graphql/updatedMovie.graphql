@@ -1,0 +1,14 @@
+subscription UpdatedMovie {
+	updatedMovie {
+		node {
+			id 
+      title
+      claps
+      year
+      country
+      category {
+        name
+      }
+		}
+	}
+}

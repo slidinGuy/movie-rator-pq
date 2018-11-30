@@ -1,0 +1,32 @@
+.Category__wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.Category__wrapper .MoviePoster {
+  margin-right: 1rem;
+}
+
+.MoviePoster > .ui.card {
+  width: auto;
+}
+
+.ui.card > .MoviePoster__title {
+  display: none;
+  position: absolute;
+  width: 100%;
+  background-image: linear-gradient(black, rgba(0,0,0,0));
+}
+
+.ui.card:hover > .MoviePoster__title {
+  display: block;
+}
+
+.ui.card > .MoviePoster__title > .header {
+  color: white;
+}
+
+.ui.card > .extra.content span {
+  font-size: 1.5rem;
+}

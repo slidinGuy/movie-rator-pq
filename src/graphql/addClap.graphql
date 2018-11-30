@@ -1,0 +1,6 @@
+mutation AddClap($movieId: String!) {
+	addClap(movieId: $movieId) {
+		id
+    claps
+  }
+}

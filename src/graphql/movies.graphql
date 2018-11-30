@@ -1,0 +1,12 @@
+query GetMovies {
+	movies {
+		id 
+    title
+    claps
+    year
+    country
+		category {
+			name
+		}
+  }
+}
